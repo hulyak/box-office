@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import MainPageLayout from '../components/MainPageLayout.js';
 import { apiGet } from '../apis/config';
+import ShowGrid from '../components/show/ShowGrid.js';
+import ActorGrid from '../components/actor/ActorGrid.js';
 
 const Home = () => {
   const [input, setInput] = useState('');
   const [results, setResults] = useState(null);
   // search for shows or people from the url
   const [searchOption, setSearchOption] = useState('shows');
-  // only select one radio button 
+  // only select one radio button
   const isShowsSearch = searchOption === 'shows';
 
   const onSearch = () => {
@@ -25,11 +27,11 @@ const Home = () => {
 
     // fetch multiple endpoints (shows / people)
     if (results && results.length > 0) {
-      return results[0].show
-        ? results.map(item => <div key={item.show.id}>{item.show.name}</div>)
-        : results.map(item => (
-            <div key={item.person.id}>{item.person.name}</div>
-          ));
+      return results[0].show ? (
+        <ShowGrid data={results} />
+      ) : (
+        <ActorGrid data={results} />
+      );
     }
     return null;
   };
