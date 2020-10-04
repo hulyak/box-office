@@ -12,10 +12,6 @@ const Home = () => {
   // only select one radio button
   const isShowsSearch = searchOption === 'shows';
 
-  useEffect(() => {
-    console.log('use effect run');
-  }, []);
-
   const onSearch = () => {
     apiGet(`/search/${searchOption}?q=${input}`).then(result => {
       setResults(result);
