@@ -13,7 +13,6 @@ const showsReducer = (prevState, action) => {
 
 // use localStorage to store data about starred shows
 const usePersistedReducer = (reducer, initialState, key) => {
-  
   const [state, dispatch] = useReducer(reducer, initialState, initial => {
     const persisted = localStorage.getItem(key);
 
@@ -30,3 +29,9 @@ const usePersistedReducer = (reducer, initialState, key) => {
 export function useShows(key = 'shows') {
   return usePersistedReducer(showsReducer, [], key);
 }
+
+// export function useLastQuery(key = 'lastQuery') {
+//   const [imput, setInput] = useState(() => {
+
+//   });
+// }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { LinkStyled, NavList } from './styles/Nav.styled';
 
 // enum link items
 const LINKS = [
@@ -8,15 +9,23 @@ const LINKS = [
 ];
 
 const Nav = () => {
+  const location = useLocation();
+  // console.log(location);
   return (
     <div>
-      <ul>
+      <NavList>
         {LINKS.map(item => (
           <li key={item.to}>
-            <Link to={item.to}>{item.text}</Link>
+            {/* if the link is active, give active class */}
+            <LinkStyled
+              to={item.to}
+              className={item.to === location.pathname ? 'active' : ''}
+            >
+              {item.text}
+            </LinkStyled>
           </li>
         ))}
-      </ul>
+      </NavList>
     </div>
   );
 };

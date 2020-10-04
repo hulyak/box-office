@@ -1,7 +1,7 @@
 import React from 'react';
 import ActorCard from './ActorCard';
 import IMAGE_NOT_FOUND from '../../images/not-found.png';
-import { FlexGrid } from '../styled';
+import { FlexGrid } from '../styles/styled';
 
 // pass props from Home component
 const ActorGrid = ({ data }) => {

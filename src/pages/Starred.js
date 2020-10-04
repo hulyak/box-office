@@ -4,6 +4,7 @@ import { useShows } from '../hooks/usePersistedReducer';
 import { apiGet } from '../apis/config';
 import ShowGrid from '../components/show/ShowGrid';
 
+// get starred shows from localStorage hook
 const Starred = () => {
   const [starred] = useShows();
   const [shows, setShows] = useState(null);
