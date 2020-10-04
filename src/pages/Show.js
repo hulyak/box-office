@@ -7,17 +7,38 @@ import { apiGet } from '../apis/config';
 const Show = () => {
   const { id } = useParams();
   const [show, setShow] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   // console.log(params);
   // api.tvmaze.com/shows/1?embed[]=seasons&embed[]=cast
 
   useEffect(() => {
-    apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`).then(results => {
-      setShow(results);
-    });
+    let isMounted = true;
+    apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`)
+      .then(results => {
+        if (isMounted) {
+          setShow(results);
+          setLoading(false);
+        }
+      })
+      .catch(err => {
+        if (isMounted) {
+          setError(err.message);
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
-  console.log(show);
-  return <div>show page</div>
+  // console.log(show);
+
+  if (isLoading) return <div>Loading</div>;
+  if (error) return <div>Error occured: {error} </div>;
+
+  return <div>show page</div>;
 };
 
 export default Show;
