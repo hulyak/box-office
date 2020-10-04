@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainPageLayout from '../components/MainPageLayout.js';
 import { apiGet } from '../apis/config';
 import ShowGrid from '../components/show/ShowGrid.js';
@@ -11,6 +11,10 @@ const Home = () => {
   const [searchOption, setSearchOption] = useState('shows');
   // only select one radio button
   const isShowsSearch = searchOption === 'shows';
+
+  useEffect(() => {
+    console.log('use effect run');
+  }, []);
 
   const onSearch = () => {
     apiGet(`/search/${searchOption}?q=${input}`).then(result => {
