@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SearchCard } from '../styled';
+import { SearchCard } from '../../styled';
 
 // extended from SearchCard
 export const StyledActorCard = styled(SearchCard)`

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StyledShowCard } from './ShowCard.styled';
+import { StyledShowCard } from './styles/ShowCard.styled';
 
 const ShowCard = ({ id, image, name, summary }) => {
   // replace html tags with empty string
