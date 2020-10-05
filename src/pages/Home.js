@@ -26,6 +26,18 @@ const Home = () => {
     });
   };
 
+  const onRadioChange = event => {
+    // access shows or people
+    setSearchOption(event.target.value);
+  };
+
+  // console.log(searchOption);
+  // make search when user presses enter key
+  const onKeyDown = event => {
+    if (event.keyCode === 13) {
+      onSearch();
+    }
+  };
   // conditionally render search result
   const renderResults = () => {
     if (results && results.length === 0) {
@@ -41,19 +53,6 @@ const Home = () => {
       );
     }
     return null;
-  };
-
-  const onRadioChange = event => {
-    // access shows or people
-    setSearchOption(event.target.value);
-  };
-
-  // console.log(searchOption);
-  // make search when user presses enter key
-  const onKeyDown = event => {
-    if (event.keyCode === 13) {
-      onSearch();
-    }
   };
 
   return (
@@ -82,7 +81,7 @@ const Home = () => {
             label="Actors"
             id="actors-search"
             value="people"
-            checked={isShowsSearch}
+            checked={!isShowsSearch}
             onChange={onRadioChange}
           />
         </div>
