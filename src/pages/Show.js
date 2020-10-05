@@ -5,7 +5,7 @@ import Cast from '../components/show/Cast';
 import Details from '../components/show/Details';
 import Seasons from '../components/show/Seasons';
 import ShowMainData from '../components/show/ShowMainData';
-import { InfoBlock, ShowPageWrapper } from './Show.styled';
+import { InfoBlock, ShowPageWrapper } from './styles/Show.styled';
 
 const reducer = (prevState, action) => {
   switch (action.type) {
