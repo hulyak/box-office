@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 // persist search query with sessionStorage
 // pass hook into Home.js
@@ -10,10 +10,14 @@ export function useLastQuery(key = 'lastQuery') {
   });
 
   // setInput won't write to sessionStorage
-  const setPersistedInput = newState => {
-    setInput(newState);
-    sessionStorage.setItem(key, JSON.stringify(newState));
-  };
+  // changes only key changes
+  const setPersistedInput = useCallback(
+    newState => {
+      setInput(newState);
+      sessionStorage.setItem(key, JSON.stringify(newState));
+    },
+    [key]
+  );
 
   return [input, setPersistedInput];
 }

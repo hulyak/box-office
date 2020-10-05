@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import MainPageLayout from '../components/MainPageLayout.js';
 import { apiGet } from '../apis/config';
 import ShowGrid from '../components/show/ShowGrid.js';
@@ -10,6 +10,24 @@ import {
   SearchInput,
 } from './styles/Home.styled.js';
 import CustomRadio from '../components/CustomRadio.js';
+// import { useWhyDidYouUpdate } from '../hooks/useWhyDidYouUpdate.js';
+
+// conditionally render search result - optimize
+const renderResults = results => {
+  if (results && results.length === 0) {
+    return <div>No results</div>;
+  }
+
+  // fetch multiple endpoints (shows / people)
+  if (results && results.length > 0) {
+    return results[0].show ? (
+      <ShowGrid data={results} />
+    ) : (
+      <ActorGrid data={results} />
+    );
+  }
+  return null;
+};
 
 const Home = () => {
   const [input, setInput] = useLastQuery();
@@ -26,10 +44,14 @@ const Home = () => {
     });
   };
 
-  const onRadioChange = event => {
+  const onInputChange = useCallback(ev => setInput(ev.target.value), [
+    setInput,
+  ]);
+
+  const onRadioChange = useCallback(event => {
     // access shows or people
     setSearchOption(event.target.value);
-  };
+  }, []);
 
   // console.log(searchOption);
   // make search when user presses enter key
@@ -38,29 +60,15 @@ const Home = () => {
       onSearch();
     }
   };
-  // conditionally render search result
-  const renderResults = () => {
-    if (results && results.length === 0) {
-      return <div>No results</div>;
-    }
 
-    // fetch multiple endpoints (shows / people)
-    if (results && results.length > 0) {
-      return results[0].show ? (
-        <ShowGrid data={results} />
-      ) : (
-        <ActorGrid data={results} />
-      );
-    }
-    return null;
-  };
+  // useWhyDidYouUpdate('home', { onInputChange, onKeyDown });
 
   return (
     <MainPageLayout>
       <SearchInput
         type="text"
         value={input}
-        onChange={ev => setInput(ev.target.value)}
+        onChange={onInputChange}
         onKeyDown={onKeyDown}
         placeholder="Search for something"
       />
@@ -93,7 +101,7 @@ const Home = () => {
         </button>
       </SearchButtonWrapper>
 
-      {renderResults()}
+      {renderResults(results)}
     </MainPageLayout>
   );
 };
