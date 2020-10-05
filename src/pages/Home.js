@@ -3,6 +3,7 @@ import MainPageLayout from '../components/MainPageLayout.js';
 import { apiGet } from '../apis/config';
 import ShowGrid from '../components/show/ShowGrid.js';
 import ActorGrid from '../components/actor/ActorGrid.js';
+import { useLastQuery } from '../hooks/useLastQuery';
 import {
   RadioInputsWrapper,
   SearchButtonWrapper,
@@ -11,7 +12,7 @@ import {
 import CustomRadio from '../components/CustomRadio.js';
 
 const Home = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useLastQuery();
   const [results, setResults] = useState(null);
   // search for shows or people from the url
   const [searchOption, setSearchOption] = useState('shows');
