@@ -3,6 +3,7 @@ import MainPageLayout from '../components/MainPageLayout';
 import { useShows } from '../hooks/usePersistedReducer';
 import { apiGet } from '../apis/config';
 import ShowGrid from '../components/show/ShowGrid';
+import { StarredStyle } from './styles/Starred.styled';
 
 // get starred shows from localStorage hook
 const Starred = () => {
@@ -34,9 +35,9 @@ const Starred = () => {
 
   return (
     <MainPageLayout>
-      {isLoading && <div>Shows are still loading</div>}
-      {error && <div>Error occured: {error}</div>}
-      {!isLoading && !shows && <div>No shows were added</div>}
+      {isLoading && <StarredStyle>Shows are still loading</StarredStyle>}
+      {error && <StarredStyle>Error occured: {error}</StarredStyle>}
+      {!isLoading && !shows && <StarredStyle>No shows were added</StarredStyle>}
       {!isLoading && !error && shows && <ShowGrid data={shows} />}
     </MainPageLayout>
   );
